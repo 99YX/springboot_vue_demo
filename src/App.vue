@@ -6,6 +6,7 @@
     <div style="display: flex">
      <!--  侧边栏    -->
       <Aside></Aside>
+      <router-view></router-view>
     </div>
 
 

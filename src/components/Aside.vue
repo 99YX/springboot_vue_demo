@@ -1,8 +1,8 @@
 <template>
 <div>
-
+            <!-- vh是整个浏览器的高度  50px是头部高度 calc(减号前后要有空格)-->
       <el-menu
-          style="width: 200px"
+          style="width: 200px;height:calc(100vh - 50px)"
           default-active="2"
           class="el-menu-vertical-demo"
           @open="handleOpen"
