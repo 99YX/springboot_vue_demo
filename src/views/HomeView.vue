@@ -52,9 +52,9 @@
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :current-page="currentPage"
+        :page-sizes="[5, 10,15, 20]"
+        :page-size="5"
         layout="total, sizes, prev, pager, next, jumper"
         :total="400">
     </el-pagination>
@@ -80,11 +80,10 @@ export default {
   },
   data() {
     return {
+      total:'',
       search: '',
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+
+      currentPage: 4,
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
