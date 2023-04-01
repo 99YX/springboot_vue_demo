@@ -2,7 +2,7 @@
   <div class="home"  style="width: 100%;padding-left: 10px">
     <!--  上下10px 左右0    -->
     <div style="margin: 10px 0">
-      <el-button type="primary">主要按钮</el-button>
+      <el-button type="primary" @click="add">新增用户</el-button>
       <el-button type="success">成功按钮</el-button>
       <el-button type="info">信息按钮</el-button>
 
@@ -18,30 +18,51 @@
        >
      <!--   sortable排序   -->
       <el-table-column
-          prop="date"
-          label="日期"
+          prop="id"
+          label="ID"
           sortable
           >
       </el-table-column>
       <el-table-column
-          prop="name"
+          prop="username"
           label="姓名"
          >
       </el-table-column>
       <el-table-column
+          prop="nickName"
+          label="昵称">
+      </el-table-column>
+
+      <el-table-column
+          prop="age"
+          label="年龄">
+      </el-table-column>
+
+      <el-table-column
+          prop="nickName"
+          label="昵称">
+      </el-table-column>
+
+      <el-table-column
+          prop="sex"
+          label="性别">
+      </el-table-column>
+
+      <el-table-column
           prop="address"
           label="地址">
       </el-table-column>
+
       <el-table-column
           fixed="right"
           label="操作"
-          width="100">
+          width="180">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" >编辑</el-button>
+          <el-button @click="handleClick(scope.row)" type="success"   >编辑</el-button>
           <el-popconfirm
               title="数据确定删除吗？"
           >
-            <el-button slot="reference" type="text" style="padding: 5px">删除</el-button>
+            <el-button slot="reference" type="danger" style="margin-left:20px "   >删除</el-button>
           </el-popconfirm>
 
         </template>
@@ -59,6 +80,35 @@
         :total="400">
     </el-pagination>
       </div>
+     <!--  新增用户对框    -->
+    <el-dialog
+        title="新增用户"
+        :visible.sync="dialogVisible"
+        width="30%"
+       >
+
+         <!--    添加表单 -->
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="用户">
+          <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="昵称">
+          <el-input v-model="form.nickName"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-radio v-model="form.sex" label="男">男</el-radio>
+          <el-radio v-model="form.sex" label="女">女</el-radio>
+          <el-radio v-model="form.sex" label="未知">未知</el-radio>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-input type="textarea" v-model="form.address"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary"  @click="save">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -68,6 +118,20 @@ export default {
   name: 'HomeView',
   components: {},
   methods: {
+    /*新增用户*/
+    add(){
+      /*打开弹窗*/
+      this.dialogVisible=true;
+
+      /*清空历史数据*/
+      this.form={}
+
+    },
+    /*发送前端请求，保存数据*/
+    save(){
+
+      this.dialogVisible=false;
+    },
     handleClick(row) {
       console.log(row);
     },
@@ -80,27 +144,13 @@ export default {
   },
   data() {
     return {
+      form:{},
+      dialogVisible: false,
       total:'',
       search: '',
 
       currentPage: 4,
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData: []
     }
   }
 
